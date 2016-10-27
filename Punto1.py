@@ -46,28 +46,187 @@ eps_plasma= eps(w)
 
 #I=Interfaz(eps0,mu0,eps_plasma,mu0)
 #print I
-E1=[]
-E1pn=[] #Norma E1+
-E1pp=[] #Fase E1+
-E1mn=[] #Norma E1-
-E1mp=[] #Fase E1-
+E1pNorm=[] #Norma E1+
+E1pPhase=[] #Fase E1+
+E1mNorm=[] #Norma E1-
+E1mPhase=[] #Fase E1-
 
+#E1=[]
+r=[]
+rNorm=[] #Norma r
+rPhase=[] #Fase r
+tNorm=[] #Norma t
+tPhase=[] #Fase t-
 
+rpNorm=[] #Norma rp
+rpPhase=[] #Fase rp
+tpNorm=[] #Norma tp
+tpPhase=[] #Fase tp
+
+R=[]
+T=[]
+Rp=[]
+Tp=[]
+RT=[]
 for f in w:
-	Ef = Interfaz(eps0,mu0,eps(f),mu0)*Propagacion(d,f)*Interfaz(eps(f),mu0,eps0,mu0)*E2
-	Ef0 = np.array(Ef[0])[0].tolist()
-	Ef1 = np.array(Ef[1])[0].tolist()
-	E1pn.append(cm.polar(Ef0[0])[0]) #Norma E1+
-	E1pp.append(cm.polar(Ef0[0])[1]) #Fase E1+
-	E1mn.append(cm.polar(Ef1[0])[0]) #Norma E1-
-	E1mp.append(cm.polar(Ef1[0])[1]) #Fase E1-
+	e=eps(f)
+	A= Interfaz(eps0,mu0,e,mu0)*Propagacion(d,f)*Interfaz(e,mu0,eps0,mu0)
+	
+	#t
+	t=1/A[0,0]
+	tNorm.append(np.abs(t))
+	tPhase.append(cm.phase(t))
+	#T
+	tt=np.abs(t)*np.abs(t) #*sqrt(Y2/Y1) 
+	T.append(tt) 
+	
+	#r
+	r=A[1,0]*t
+	rNorm.append(np.abs(r))
+	rPhase.append(cm.phase(r))
+	#R
+	rr = np.abs(r)*np.abs(r)
+	R.append(rr)
+	
+	#RT
+	#print rr
+	#print tt
+	#print rr+tt
+	RT.append(rr+tt)
+	
+	#rp
+	rp=-1.*A[0,1]*t
+	rpNorm.append(np.abs(rp))
+	rpPhase.append(cm.phase(rp))
+	#Rp
+	Rp.append(np.abs(rp)*np.abs(rp))
+	
+	#tp
+	tp=A[1,1] + r*rp/t
+	tpNorm.append(np.abs(tp))
+	tpPhase.append(cm.phase(tp))
+	#Tp
+	Tp.append(np.abs(tp)*np.abs(tp))
+	
+	
+	
+		
+	#Campos#
+	#E1 =A*E2
+	#E1p = np.array(E1[0])[0].tolist()
+	#E1m = np.array(E1[1])[0].tolist()
+	#print E1p[0]
+	#print E1m[0]
+	#print E1m[0]/E1p[0]
+	#E1pNorm.append(cm.polar(E1p[0])[0]) #Norma E1+
+	#E1pPhase.append(cm.polar(E1p[0])[1]) #Fase E1+
+	#E1mNorm.append(cm.polar(E1m[0])[0]) #Norma E1-
+	#E1mPhase.append(cm.polar(E1m[0])[1]) #Fase E1-
 	#print cm.polar(E_f[0])
-	E1.append(Ef)
 
+#Grafica de t	
+plt.plot(w, tNorm, label='t_N')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Norma')
+plt.title('Norma de t')    
+#plt.show()
+plt.plot(w, tPhase, label='t_phase')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Fase')
+plt.title('Fase de t')
+#plt.show()
+
+#Grafica de r
+plt.plot(w, rNorm, label='r_N')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Norma')
+plt.title('Norma de r')    
+#plt.show()
+plt.plot(w, rPhase, label='r_phase')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Fase')
+plt.title('Fase de r')
+#plt.show()
+
+
+#Grafica de tp	
+plt.plot(w, tpNorm, label='tp_N')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Norma')
+plt.title('Norma de tp')    
+#plt.show()
+plt.plot(w, tpPhase, label='tp_phase')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Fase')
+plt.title('Fase de tp')
+#plt.show()
+
+#Grafica de rp
+plt.plot(w, rpNorm, label='rp_N')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Norma')
+plt.title('Norma de rp')    
+#plt.show()
+plt.plot(w, rpPhase, label='rp_phase')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Fase')
+plt.title('Fase de rp')
+plt.show()
+
+
+#Grafica de T
+plt.plot(w, T, label='T')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('T')
+plt.title('T')    
+
+#Grafica de R
+plt.plot(w, R, label='R')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('R')
+plt.title('R')    
+plt.show()
+
+#Grafica de Tp
+plt.plot(w, Tp, label='Tp')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Tp')
+plt.title('Tp')    
+
+#Grafica de Rp
+plt.plot(w, Rp, label='Rp')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('Rp')
+plt.title('Rp')    
+
+#plt.show()
+
+#Grafica de T+R
+plt.plot(w, RT, label='R+T')
+plt.legend()
+plt.xlabel('w')
+plt.ylabel('R+T')
+plt.title('R+T')   
+plt.show()
+
+plt.plot(w,np.log(RT))
+plt.show()
+#print RT
 #print E1
-
-print E1pn
-#plt.plot(w, E1pn)
+#print E1pn
+#plt.plot(w, E1pNorm)
 #plt.plot(w, E1pp)
 #plt.plot(w, E1mn)
 #plt.plot(w, E1mp)
@@ -78,9 +237,4 @@ print E1pn
 #[<matplotlib.lines.Line2D object at 0x...>]
 #>>> plt.ylim([-0.5, 1])
 #(-0.5, 1)
-#>>> plt.show()
-
-#print T.T                                    # Transpose of A.
-print E2                                   # Matrix multiplication of A and x.
-#print E1                                    # Inverse of A.
-#print np.linalg.solve(T,E2)     # Solve the linear equation system.
+#plt.show()
