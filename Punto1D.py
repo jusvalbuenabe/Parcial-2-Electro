@@ -11,7 +11,9 @@ eps0=1.
 mu0=1.
 
 E2p=1.
-E2m=1.
+E2m=0.
+
+E2 = np.matrix([ [E2p],[E2m] ])                  # Creates Electric Field.
 
 d=50.
 
@@ -28,7 +30,7 @@ def Interfaz(eps1, mu1, eps2, mu2):
 def Propagacion(d, w):
     k=(1/c)*cm.sqrt((w*w)-(wp*wp))
     d=  d%(2*np.pi)
-    D = np.matrix([ [cm.exp(-1j*k*d),0],[0, cm.exp(1j*k*d)] ]) 
+    D= np.matrix([ [cm.exp(-1j*k*d),0],[0, cm.exp(1j*k*d)] ]) 
     return D
 
 def eps(w):
@@ -36,7 +38,6 @@ def eps(w):
 	return eps
 	
 
-E2 = np.matrix([ [E2p],[E2m] ])                  # Creates Electric Field.
 
 w=np.linspace(wp/10,2*wp, num = 1000)
 x=np.linspace(-d,2*d,num=100)
