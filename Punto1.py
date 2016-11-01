@@ -115,8 +115,6 @@ for f in w:
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
-
-
 #Grafica de Norma t	
 plt.plot(w, tNorm, label='$|t|$')
 #plt.legend()
@@ -126,102 +124,162 @@ plt.title('$|t|$', fontsize=18)
 plt.axis([0.1*wp,2*wp,-0.1,1.1])
 plt.grid(True)
 plt.savefig('t_N.pdf')
-#plt.show()
-
+plt.show()
 
 #Grafica de Fase t	
 plt.plot(w, tPhase, label='$\phi_t$')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('Fase')
-plt.title('Fase de t')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel(r'$\phi_t$', fontsize=16)
+plt.title(r'$\phi_t$', fontsize=18)
+labels=[r'$-2\pi$', r'$- \frac{3 \pi}{2}$', r'$- \pi$', r'$- \frac{ \pi}{2}$', r'$0$', r'$\frac{\pi}{2}$',r'$\pi$',r'$\frac{3\pi}{2}$',r'$2 \pi$']
+plt.yticks(np.arange(-2*np.pi,2*np.pi, (np.pi)/2), labels)
+plt.grid(True)
+plt.axis([0.1*wp,2*wp,-np.pi-0.1,np.pi+0.1])
+plt.savefig('t_f.pdf')
 plt.show()
 
-#Grafica de r
-plt.plot(w, rNorm, label='r_N')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('Norma')
-plt.title('Norma de r')    
+#Grafica de Norma de r
+plt.plot(w, rNorm, label='|r|')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel('$|r|$', fontsize=16)
+plt.title('$|r|$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('r_N.pdf')
 plt.show()
-plt.plot(w, rPhase, label='r_phase')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('Fase')
-plt.title('Fase de r')
+
+#Grafica de Fase r
+plt.plot(w, rPhase, label='$\phase_r$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel(r'$\phi_r$', fontsize=16)
+plt.title(r'$\phi_r$', fontsize=18)
+labels=[r'$-2\pi$', r'$- \frac{3 \pi}{2}$', r'$- \pi$', r'$- \frac{ \pi}{2}$', r'$0$', r'$\frac{\pi}{2}$',r'$\pi$',r'$\frac{3\pi}{2}$',r'$2 \pi$']
+plt.yticks(np.arange(-2*np.pi,2*np.pi, (np.pi)/2), labels)
+plt.grid(True)
+plt.axis([0.1*wp,2*wp,-np.pi-0.1,np.pi+0.1])
+plt.savefig('r_f.pdf')
+plt.show()
+
+#Grafica de Norma tp	
+plt.plot(w, tpNorm, label=r'$t^\prime$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel(r'$|t^\prime|$', fontsize=16)
+plt.title(r'$|t^\prime|$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('tp_N.pdf')
+plt.show()
+
+#Grafica de Fase de tp
+plt.plot(w, tpPhase, label=r'$\phi_{t^\prime}$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel(r'$\phi_{t^\prime}$', fontsize=16)
+plt.title(r'$\phi_{t^\prime}$', fontsize=18)
+labels=[r'$-2\pi$', r'$- \frac{3 \pi}{2}$', r'$- \pi$', r'$- \frac{ \pi}{2}$', r'$0$', r'$\frac{\pi}{2}$',r'$\pi$',r'$\frac{3\pi}{2}$',r'$2 \pi$']
+plt.yticks(np.arange(-2*np.pi,2*np.pi, (np.pi)/2), labels)
+plt.grid(True)
+plt.axis([0.1*wp,2*wp,-np.pi-0.1,np.pi+0.1])
+plt.savefig('tp_f.pdf')
 plt.show()
 
 
-#Grafica de tp	
-plt.plot(w, tpNorm, label='tp_N')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('Norma')
-plt.title('Norma de tp')    
-plt.show()
-plt.plot(w, tpPhase, label='tp_phase')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('Fase')
-plt.title('Fase de tp')
+#Grafica de Norma rp
+plt.plot(w, rpNorm, label=r'$|r^\prime|$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel(r'$|r^\prime|$', fontsize=16)
+plt.title(r'$|r^\prime|$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('rp_N.pdf')
 plt.show()
 
-#Grafica de rp
-plt.plot(w, rpNorm, label='rp_N')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('Norma')
-plt.title('Norma de rp')    
-plt.show()
-plt.plot(w, rpPhase, label='rp_phase')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('Fase')
-plt.title('Fase de rp')
+#Grafica de Fase de rp
+plt.plot(w, rpPhase, label=r'$\phi_{r^\prime}$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel(r'$\phi_{r^\prime}$', fontsize=16)
+plt.title(r'$\phi_{r^\prime}$', fontsize=18)
+labels=[r'$-2\pi$', r'$- \frac{3 \pi}{2}$', r'$- \pi$', r'$- \frac{ \pi}{2}$', r'$0$', r'$\frac{\pi}{2}$',r'$\pi$',r'$\frac{3\pi}{2}$',r'$2 \pi$']
+plt.yticks(np.arange(-2*np.pi,2*np.pi, (np.pi)/2), labels)
+plt.grid(True)
+plt.axis([0.1*wp,2*wp,-np.pi-0.1,np.pi+0.1])
+plt.savefig('rp_f.pdf')
 plt.show()
 
 
 #Grafica de T
-plt.plot(w, T, label='T')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('T')
-plt.title('T')    
-
-#Grafica de R
-plt.plot(w, R, label='R')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('R')
-plt.title('R')    
-#plt.show()
-
-
-#Grafica de T+R
-plt.plot(w, RT, label='R+T')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('R+T')
-plt.title('R+T')   
+plt.plot(w, T, label='$T$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel('$T$', fontsize=16)
+plt.title('$T$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('T.pdf')
 plt.show()
 
-plt.plot(w,np.log(RT))
+#Grafica de R
+plt.plot(w, R, label='$R$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel('$R$', fontsize=16)
+plt.title('$R$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('R.pdf')
+plt.show()
+
+#Grafica de T+R
+plt.plot(w, T, label=r'$T$')
+plt.plot(w, R, label=r'$R$')
+plt.plot(w, RT, label=r'$T+R$')
+plt.legend(loc=2)
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+#plt.ylabel('$T+R$', fontsize=16)
+plt.title('$T+R$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('RT.pdf')
 plt.show()
 
 
 #Grafica de Tp
-plt.plot(w, Tp, label='Tp')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('Tp')
-plt.title('Tp')    
-
-#Grafica de Rp
-plt.plot(w, Rp, label='Rp')
-plt.legend()
-plt.xlabel('w')
-plt.ylabel('Rp')
-plt.title('Rp')    
-plt.plot(w,RTp)
+plt.plot(w, Tp, label='$T^\prime$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel('$T^\prime$', fontsize=16)
+plt.title('$T^\prime$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('Tp.pdf')
 plt.show()
 
+#Grafica de Rp
+plt.plot(w, Rp, label='$R^\prime$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel('$R^\prime$', fontsize=16)
+plt.title('$R^\prime$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('Rp.pdf')
+plt.show()
+
+#Grafica de Tp+Rp
+plt.plot(w, Tp, label=r'$T^\prime$')
+plt.plot(w, Rp, label=r'$R^\prime$')
+plt.plot(w, RTp, label=r'$T^\prime+R^\prime$')
+plt.legend(loc=2)
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+#plt.ylabel('$Tp+Rp$', fontsize=16)
+plt.title(r'$T^\prime+R^\prime$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('RTp.pdf')
+plt.show()
