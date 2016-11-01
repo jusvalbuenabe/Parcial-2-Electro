@@ -50,7 +50,7 @@ def eps(w):
 E2 = np.matrix([ [E2p],[E2m] ])                  # Creates Electric Field.
 
 w=np.linspace(wp/10.,2.*wp, num = 1000)
-x=np.linspace(-d,2*d,num=100)
+#x=np.linspace(-d,2*d,num=100)
 
 eps_plasma= eps(w)
 
