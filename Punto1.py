@@ -115,13 +115,22 @@ for f in w:
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
-#Grafica de t	
-plt.plot(w, tNorm, label='t_N')
-plt.xlabel(r'omega')
-plt.ylabel('Norma')
-plt.title('Norma de t')    
-plt.show()
-plt.plot(w, tPhase, label='t_phase')
+
+
+#Grafica de Norma t	
+plt.plot(w, tNorm, label='$|t|$')
+#plt.legend()
+plt.xlabel(r'$\frac{\omega}{\omega_p}$', fontsize=16)
+plt.ylabel('$|t|$', fontsize=16)
+plt.title('$|t|$', fontsize=18) 
+plt.axis([0.1*wp,2*wp,-0.1,1.1])
+plt.grid(True)
+plt.savefig('t_N.pdf')
+#plt.show()
+
+
+#Grafica de Fase t	
+plt.plot(w, tPhase, label='$\phi_t$')
 plt.legend()
 plt.xlabel('w')
 plt.ylabel('Fase')
@@ -216,36 +225,3 @@ plt.title('Rp')
 plt.plot(w,RTp)
 plt.show()
 
-"""
-Demo of TeX rendering.
-
-You can use TeX to render all of your matplotlib text if the rc
-parameter text.usetex is set.  This works currently on the agg and ps
-backends, and requires that you have tex and the other dependencies
-described at http://matplotlib.org/users/usetex.html
-properly installed on your system.  The first time you run a script
-you will see a lot of output from tex and associated tools.  The next
-time, the run may be silent, as a lot of the information is cached in
-~/.tex.cache
-
-"""
-
-#import numpy as np
-#import matplotlib.pyplot as plt
-
-
-# Example data
-t = np.arange(0.0, 1.0 + 0.01, 0.01)
-s = np.cos(4 * np.pi * t) + 2
-
-plt.rc('text', usetex=True)
-plt.rc('font', family='serif')
-plt.plot(t, s)
-
-plt.xlabel(r'\textbf{time} (s)')
-plt.ylabel(r'\textit{voltage} (mV)',fontsize=16)
-plt.title(r"\TeX\ is Number "
-          r"$\displaystyle\sum_{n=1}^\infty\frac{-e^{i\pi}}{2^n}$!",
-          fontsize=16, color='gray')
-# Make room for the ridiculously large title.
-plt.subplots_adjust(top=0.8)
