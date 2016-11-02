@@ -44,8 +44,8 @@ def eps(w):
 
 #eps_plasma= eps(w)
 
-N=11
-a=1.1
+N=26
+a=0.999
 w=a*wp
 f=w
 T=2.*np.pi/w
