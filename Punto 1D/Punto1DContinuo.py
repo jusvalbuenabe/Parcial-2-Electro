@@ -52,6 +52,8 @@ for ii in n:
     f=wp*ii #prueba
     ns=str(ii)
 
+    E1pNorm=[] #Norma E1+
+
     E1T=[] #Campo Neto REAL
     E1TN=[] #Norma del Campo
     E1TPhase=[]
@@ -69,11 +71,15 @@ for ii in n:
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
 
-        
+        E1pNorm.append(cm.polar(E1p[0])[0]) #Norma E1+
+
         E1TN.append(cm.polar(E1p[0]+E1m[0])[0]) #Norma de E1+ + E1-
         E1TPhase.append(cm.polar(E1p[0]+E1m[0])[1]) #Fase de E1+ + E1-
         E1T.append((E1p[0]+ E1m[0]).real) #Parte Real de  E1+
-        
+    
+    E1Ta=np.asarray(E1pNorm)
+    E1MAX=max(np.abs(E1Ta))    
+    
     for z in x2:
         e=eps(f)
         A= Propagacion(z-d,f,e)*Interfaz(e,mu0,eps0,mu0)*Propagacion(d-2*d,f,eps0)
@@ -88,7 +94,7 @@ for ii in n:
         
     for z in x3:
         e=eps(f)
-        A= Propagacion(2*d-z,f,eps0)
+        A= Propagacion(z-2*d,f,eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
@@ -97,14 +103,13 @@ for ii in n:
         E1T.append(ET) #Parte Real de  E1+
         E1TN.append(cm.polar(E1p[0]+E1m[0])[0])
 
-    E1Ta=np.asarray(E1T)
-    E1MAX=max(np.abs(E1Ta))
+    E1Tb=np.asarray(E1T)
     
     ##GRAFICA DEL CAMPO
-    #plt.rc('text', usetex=True)
-    #plt.rc('font', family='serif')
+    plt.rc('text', usetex=True)
+    plt.rc('font', family='serif')
         
-    plt.plot(x123, E1Ta/E1MAX, label=ns+'$\omega_p$')
+    plt.plot(x123, E1Tb/E1MAX, label=ns+'$\omega_p$')
     
 plt.grid(True)
 # plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
@@ -117,14 +122,14 @@ labelsx=[r'$-d$',r'$-\frac{d}{2}$',r'$0$',r'$\frac{d}{2}$',r'$d$',r'$\frac{3d}{2
 plt.xticks(np.arange(-d,2*d+1,d/2), labelsx, fontsize=16)
     
 plt.xlabel(r'$z$', fontsize=16)
-plt.ylabel(r'$\frac{E}{|E_1|}$', fontsize=16)
+plt.ylabel(r'$\frac{E}{|E_1^+|}$', fontsize=16)
 ttitle='$\omega=N\omega_p$'
 plt.title(ttitle)
 #ssave2='E'+ns+'w.pdf'
 
 plt.savefig('Continuo.pdf')
 plt.show()
-    
+   
     
     
 
