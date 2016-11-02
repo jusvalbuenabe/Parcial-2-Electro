@@ -71,47 +71,44 @@ Rp=[]
 Tp=[]
 RTp=[]
 for f in w:
-	e=eps(f)
-	A= Interfaz(eps0,mu0,e,mu0)*Propagacion(d,f)*Interfaz(e,mu0,eps0,mu0)
-	
-	#t
-	t=1/A[0,0]
-	tNorm.append(np.abs(t))
-	tPhase.append(cm.phase(t))
-	#T
-	tt=np.abs(t)*np.abs(t) #*sqrt(Y2/Y1) 
-	T.append(tt) 
-	
-	#r
-	r=A[1,0]*t
-	rNorm.append(np.abs(r))
-	rPhase.append(cm.phase(r))
-	#R
-	rr = np.abs(r)*np.abs(r)
-	R.append(rr)
-        
-        #R+T
-        RT.append(rr+tt)
-	
-	#rp
-	rp=-1.*A[0,1]*t
-	rpNorm.append(np.abs(rp))
-	rpPhase.append(cm.phase(rp))
-	#Rp
-	rrp = np.abs(rp)*np.abs(rp)
-	Rp.append(rrp)
-	
-	
-	#tp
-	tp=(A[0,0]*A[1,1]-A[0,1]*A[1,0])/A[0,0] #t-r*rp/t
-	tpNorm.append(np.abs(tp))
-	tpPhase.append(cm.phase((A[0,0]*A[1,1]-A[0,1]*A[1,0])/(A[0,0])) )
-	#Tp	
-        ttp=np.abs(tp)*np.abs(tp) #*sqrt(Y2/Y1) 
-	Tp.append(ttp) 
-	#Rp+Tp
-        RTp.append(rrp+ttp)
-
+    e=eps(f)
+    A= Interfaz(eps0,mu0,e,mu0)*Propagacion(d,f)*Interfaz(e,mu0,eps0,mu0)
+    
+    #t
+    t=1/A[0,0]
+    tNorm.append(np.abs(t))
+    tPhase.append(cm.phase(t))
+    #T
+    tt=np.abs(t)*np.abs(t) #*sqrt(Y2/Y1) 
+    T.append(tt) 
+    
+    #r
+    r=A[1,0]*t
+    rNorm.append(np.abs(r))
+    rPhase.append(cm.phase(r))
+    #R
+    rr = np.abs(r)*np.abs(r)
+    R.append(rr)
+    #R+T
+    RT.append(rr+tt)
+    #rp
+    rp=-1.*A[0,1]*t
+    rpNorm.append(np.abs(rp))
+    rpPhase.append(cm.phase(rp))
+    #Rp
+    rrp = np.abs(rp)*np.abs(rp)
+    Rp.append(rrp)
+    
+    #tp
+    tp=(A[0,0]*A[1,1]-A[0,1]*A[1,0])/A[0,0] #t-r*rp/t
+    tpNorm.append(np.abs(tp))
+    tpPhase.append(cm.phase((A[0,0]*A[1,1]-A[0,1]*A[1,0])/(A[0,0])) )
+    #Tp	
+    ttp=np.abs(tp)*np.abs(tp) #*sqrt(Y2/Y1) 
+    Tp.append(ttp) 
+    #Rp+Tp
+    RTp.append(rrp+ttp)
+    
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
