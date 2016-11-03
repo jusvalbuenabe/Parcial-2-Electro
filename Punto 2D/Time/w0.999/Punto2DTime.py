@@ -21,6 +21,8 @@ wp=1.
 lp= 2*np.pi*c/wp #\lambda_p
 d=2*lp
 
+
+
 def Interfaz(eps1, mu1, eps2, mu2):
     Y1=cm.sqrt(eps1/mu1)
     Y2=cm.sqrt(eps2/mu2)
@@ -42,14 +44,30 @@ def eps(w):
 
 #eps_plasma= eps(w)
 
+N=51
+a=0.999
+w=a*wp
+f=w
+T=2.*np.pi/w
+t=np.linspace(0.,1.0,num=N)
 
-n=np.arange(0.1,2,0.1)
-for ii in n:
-    if ii == 1.:
-        continue
-    f=wp*ii #prueba
-    ns=str(ii)
+nf=str(a)
 
+for ii in t:
+    #print ii
+    #Fase= np.matrix([ [cm.exp(-1j*w*T/N),0],[0, cm.exp(-1j*w*T/N)] ]) 
+    E2=np.matrix([ [E2p*cm.exp(1j*w*ii*T)],[E2m*cm.exp(1j*w*ii*T)] ])
+   
+    #Fase= np.matrix([ [cm.exp(-1j*w*T/N),0],[0, cm.exp(-1j*w*T/N)] ]) 
+    # E2=Fase*E2
+
+    # print E2
+
+    #ns=str(ii)
+    ns= "%.2f"%ii
+
+    E1pNorm=[] #Norma E1+
+  
     E1p=[]
     E1pNorm=[] #Norma E1+
     E1pPhase=[] #Fase E1+
@@ -73,7 +91,7 @@ for ii in n:
 
     for z in x1:
         e=eps(f)
-        A=Propagacion(z,f,eps0)*Interfaz(eps0,mu0,e,mu0)*Propagacion(0-d,f,e)*Interfaz(e,mu0,eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
+        A=Propagacion(z,f,eps0)*Interfaz(eps0,mu0,e,mu0)*Propagacion(0-d,f,e)*Interfaz(e,mu0,2*eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
@@ -114,7 +132,7 @@ for ii in n:
 
     for z in x2:
         e=eps(f)
-        A= Propagacion(z-d,f,e)*Interfaz(e,mu0,eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
+        A= Propagacion(z-d,f,e)*Interfaz(e,mu0,2*eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
@@ -169,7 +187,7 @@ for ii in n:
         E1T.append(ET) #Parte Real de  E1+
         E1TN.append(cm.polar(E1p[0]+E1m[0])[0])
 
-        
+   
 
     plt.rc('text', usetex=True)
     plt.rc('font', family='serif')
@@ -183,6 +201,8 @@ for ii in n:
     plt.plot(x123, E1T/E1MAX, label='$E_T$')
     
     plt.grid(True)
+
+    plt.axis([-d-0.2,2*d+0.2,-3.1,3.1])
   # plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
     
     
@@ -190,15 +210,17 @@ for ii in n:
     labelsx=[r'$-d$',r'$-\frac{d}{2}$',r'$0$',r'$\frac{d}{2}$',r'$d$',r'$\frac{3d}{2}$',r'$2d$']
     plt.xticks(np.arange(-d,2*d+1,d/2), labelsx, fontsize=16)
     plt.xlabel(r'$z$', fontsize=16)
-    plt.ylabel(r'$\frac{E}{|E_2|}$', fontsize=16)
+    plt.ylabel(r'$\frac{E}{|E_1^+|}$', fontsize=16)
 
-    ttitle='$\omega=$'+ns+'$\omega_p$'
+    ttitle='$t=$'+ns+'$T$'
     plt.title(ttitle)
     plt.subplots_adjust(right=0.8)
     plt.legend(bbox_to_anchor=(1.05, 1.0), loc=2, borderaxespad=0.)
-    ssave=ns+'w.pdf'
+    #ssave=ns+'w.pdf'
+    #plt.savefig(ssave)
+    ssave='w'+nf+'t'+ns+'T.pdf'
     plt.savefig(ssave)
-    plt.show()
+    # plt.show()
     plt.close()
       
     
@@ -206,7 +228,7 @@ for ii in n:
     plt.plot(x123, E1T/E1MAX, label='$E_T$')
     
     plt.grid(True)
-   # plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
+    plt.axis([-d-0.2,2*d+0.2,-4.1,4.1])
 
     
     labelsx=[r'$-\lambda_p$','$0$','$\lambda_p$','$2\lambda_p$']
@@ -215,14 +237,15 @@ for ii in n:
     
     plt.xlabel(r'$z$', fontsize=16)
     plt.ylabel(r'$\frac{E}{|E_1^+|}$', fontsize=16)
-    ttitle='$\omega=$'+ns+'$\omega_p$'
+    ttitle='$t=$'+ns+'$T$'
     plt.title(ttitle)
-    ssave2='E'+ns+'w.pdf'
+    ssave2='w'+nf+'t'+ns+'u.pdf'
     plt.savefig(ssave2)
-    plt.show()
+    # plt.show()
     plt.close()
-    print(ns)
-plt.show()
+    #print(ns)
+
+#plt.show()
     
     
     
