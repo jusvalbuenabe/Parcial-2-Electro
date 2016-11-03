@@ -44,7 +44,7 @@ def eps(w):
 
 #eps_plasma= eps(w)
 
-N=26
+N=51
 a=0.999
 w=a*wp
 f=w
@@ -63,7 +63,8 @@ for ii in t:
 
     # print E2
 
-    ns=str(ii)
+    #ns=str(ii)
+    ns= "%.2f"%ii
 
     E1pNorm=[] #Norma E1+
   
@@ -201,7 +202,7 @@ for ii in t:
     
     plt.grid(True)
 
-    plt.axis([-d-0.2,2*d+0.2,-2.5,2.5])
+    plt.axis([-d-0.2,2*d+0.2,-3.1,3.1])
   # plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
     
     
@@ -219,7 +220,7 @@ for ii in t:
     #plt.savefig(ssave)
     ssave='w'+nf+'t'+ns+'T.pdf'
     plt.savefig(ssave)
-    #plt.show()
+    # plt.show()
     plt.close()
       
     
@@ -227,7 +228,7 @@ for ii in t:
     plt.plot(x123, E1T/E1MAX, label='$E_T$')
     
     plt.grid(True)
-    plt.axis([-d-0.2,2*d+0.2,-2.5,2.5])
+    plt.axis([-d-0.2,2*d+0.2,-3.1,3.1])
 
     
     labelsx=[r'$-\lambda_p$','$0$','$\lambda_p$','$2\lambda_p$']
@@ -240,7 +241,7 @@ for ii in t:
     plt.title(ttitle)
     ssave2='w'+nf+'t'+ns+'u.pdf'
     plt.savefig(ssave2)
-    #plt.show()
+    # plt.show()
     plt.close()
     #print(ns)
 
