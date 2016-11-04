@@ -112,7 +112,7 @@ for ii in n:
     plt.plot(x123, E1Tb/E1MAX, label=ns+'$\omega_p$')
     
 plt.grid(True)
-# plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
+plt.axis([-d-0.2,2*d+0.2,-2.5,2.5])
 
 plt.legend(bbox_to_anchor=(1.05, 1.0), loc=2, borderaxespad=0.,fontsize=10)
    

@@ -66,7 +66,7 @@ for ii in n:
     x123=np.concatenate((x12,x3))
     for z in x1:
         e=eps(f)
-        A=Propagacion(z,f,eps0)*Interfaz(eps0,mu0,e,mu0)*Propagacion(0-d,f,e)*Interfaz(e,mu0,eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
+        A=Propagacion(z,f,eps0)*Interfaz(eps0,mu0,e,mu0)*Propagacion(0-d,f,e)*Interfaz(e,mu0,2*eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
@@ -82,7 +82,7 @@ for ii in n:
     
     for z in x2:
         e=eps(f)
-        A= Propagacion(z-d,f,e)*Interfaz(e,mu0,eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
+        A= Propagacion(z-d,f,e)*Interfaz(e,mu0,2*eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()

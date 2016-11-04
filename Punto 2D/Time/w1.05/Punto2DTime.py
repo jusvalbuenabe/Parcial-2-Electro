@@ -31,7 +31,7 @@ def Interfaz(eps1, mu1, eps2, mu2):
     return T 
 
 def Propagacion(d, w, eps):
-    k=(1./c)*(w*w)*cm.sqrt(eps)
+    k=(1./c)*(w)*cm.sqrt(eps)
     D= np.matrix([ [cm.exp(-1j*k*d),0],[0, cm.exp(1j*k*d)] ]) 
     return D
 
@@ -44,7 +44,7 @@ def eps(w):
 
 #eps_plasma= eps(w)
 
-N=11
+N=21
 a=1.05
 w=a*wp
 f=w
@@ -63,7 +63,8 @@ for ii in t:
 
     # print E2
 
-    ns=str(ii)
+    ns= "%.2f"%ii
+    
 
     E1pNorm=[] #Norma E1+
   

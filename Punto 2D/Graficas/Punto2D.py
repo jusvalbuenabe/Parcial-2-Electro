@@ -29,7 +29,7 @@ def Interfaz(eps1, mu1, eps2, mu2):
     return T 
 
 def Propagacion(d, w, eps):
-    k=(1./c)*(w*w)*cm.sqrt(eps)
+    k=(1./c)*(w)*cm.sqrt(eps)
     D= np.matrix([ [cm.exp(-1j*k*d),0],[0, cm.exp(1j*k*d)] ]) 
     return D
 
@@ -73,7 +73,7 @@ for ii in n:
 
     for z in x1:
         e=eps(f)
-        A=Propagacion(z,f,eps0)*Interfaz(eps0,mu0,e,mu0)*Propagacion(0-d,f,e)*Interfaz(e,mu0,eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
+        A=Propagacion(z,f,eps0)*Interfaz(eps0,mu0,e,mu0)*Propagacion(0-d,f,e)*Interfaz(e,mu0,2*eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
@@ -114,7 +114,7 @@ for ii in n:
 
     for z in x2:
         e=eps(f)
-        A= Propagacion(z-d,f,e)*Interfaz(e,mu0,eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
+        A= Propagacion(z-d,f,e)*Interfaz(e,mu0,2*eps0,mu0)*Propagacion(d-2*d,f,2*eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
@@ -183,7 +183,7 @@ for ii in n:
     plt.plot(x123, E1T/E1MAX, label='$E_T$')
     
     plt.grid(True)
-  # plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
+    plt.axis([-d-0.2,2*d+0.2,-2.5,2.5])
     
     
     labelsx=[r'$-\lambda_p$','$0$','$\lambda_p$','$2\lambda_p$']
@@ -206,7 +206,7 @@ for ii in n:
     plt.plot(x123, E1T/E1MAX, label='$E_T$')
     
     plt.grid(True)
-   # plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
+    plt.axis([-d-0.2,2*d+0.2,-2.5,2.5])
 
     
     labelsx=[r'$-\lambda_p$','$0$','$\lambda_p$','$2\lambda_p$']

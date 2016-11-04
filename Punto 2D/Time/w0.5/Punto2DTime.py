@@ -44,7 +44,7 @@ def eps(w):
 
 #eps_plasma= eps(w)
 
-N=11
+N=21
 a=0.5
 w=a*wp
 f=w
@@ -63,7 +63,8 @@ for ii in t:
 
     # print E2
 
-    ns=str(ii)
+    ns= "%.2f"%ii
+    
 
     E1pNorm=[] #Norma E1+
   

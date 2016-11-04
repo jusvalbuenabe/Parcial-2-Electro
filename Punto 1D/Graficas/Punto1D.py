@@ -29,7 +29,7 @@ def Interfaz(eps1, mu1, eps2, mu2):
     return T 
 
 def Propagacion(d, w, eps):
-    k=(1./c)*(w*w)*cm.sqrt(eps)
+    k=(1./c)*(w)*cm.sqrt(eps)
     D= np.matrix([ [cm.exp(-1j*k*d),0],[0, cm.exp(1j*k*d)] ]) 
     return D
 
@@ -198,7 +198,7 @@ for ii in n:
     plt.legend(bbox_to_anchor=(1.05, 1.0), loc=2, borderaxespad=0.)
     ssave=ns+'w.pdf'
     plt.savefig(ssave)
-    #plt.show()
+    plt.show()
     plt.close()
       
     
@@ -219,7 +219,7 @@ for ii in n:
     plt.title(ttitle)
     ssave2='E'+ns+'w.pdf'
     plt.savefig(ssave2)
-    #plt.show()
+    plt.show()
     plt.close()
     print(ns)
 plt.show()
