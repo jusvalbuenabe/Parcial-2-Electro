@@ -31,7 +31,7 @@ def Interfaz(eps1, mu1, eps2, mu2):
     return T 
 
 def Propagacion(d, w, eps):
-    k=(1./c)*(w*w)*cm.sqrt(eps)
+    k=(1./c)*(w)*cm.sqrt(eps)
     D= np.matrix([ [cm.exp(-1j*k*d),0],[0, cm.exp(1j*k*d)] ]) 
     return D
 
