@@ -188,8 +188,8 @@ for ii in t:
 
    
 
-    plt.rc('text', usetex=True)
-    plt.rc('font', family='serif')
+    #plt.rc('text', usetex=True)
+    #plt.rc('font', family='serif')
     plt.plot(x123, E1pNorm/E1MAX,'--', label='$|E_1^+|$')
     plt.plot(x123, E1pReal/E1MAX, label='$E_1^+$')
     

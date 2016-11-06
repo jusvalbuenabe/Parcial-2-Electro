@@ -188,10 +188,9 @@ for ii in t:
         E1T.append(ET) #Parte Real de  E1+
         E1TN.append(cm.polar(E1p[0]+E1m[0])[0])
 
-   
 
-    plt.rc('text', usetex=True)
-    plt.rc('font', family='serif')
+    #plt.rc('text', usetex=True)
+    #plt.rc('font', family='serif')
     plt.plot(x123, E1pNorm/E1MAX,'--', label='$|E_1^+|$')
     plt.plot(x123, E1pReal/E1MAX, label='$E_1^+$')
     
@@ -204,7 +203,7 @@ for ii in t:
     plt.grid(True)
     
     #plt.axis([-d-0.2,2*d+0.2,-3,3])
-    plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
+    plt.axis([-d-0.2,2*d+0.2,-2.5,2.5])
     
     
     labelsx=[r'$-\lambda_p$','$0$','$\lambda_p$','$2\lambda_p$']
