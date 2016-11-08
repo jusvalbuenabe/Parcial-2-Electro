@@ -44,8 +44,7 @@ def eps(w):
 
 #eps_plasma= eps(w)
 
-
-n=np.arange(0.8,1.25,0.1)
+n=np.array([0.5,0.95,1.05, 1.5])
 for ii in n:
     if ii == 1.:
         continue
@@ -106,15 +105,15 @@ for ii in n:
     E1Tb=np.asarray(E1T)
     
     ##GRAFICA DEL CAMPO
-    plt.rc('text', usetex=True)
-    plt.rc('font', family='serif')
+    #plt.rc('text', usetex=True)
+    #plt.rc('font', family='serif')
         
     plt.plot(x123, E1Tb/E1MAX, label=ns+'$\omega_p$')
     
 plt.grid(True)
-# plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
+plt.axis([-d-0.2,2*d+0.2,-2.5,2.5])
 
-plt.legend(bbox_to_anchor=(1.05, 1.0), loc=2, borderaxespad=0.,fontsize=10)
+plt.legend(bbox_to_anchor=(0.75, 0.95), loc=2, borderaxespad=0.1,fontsize=10)
    
     
 #labelsx=[r'$-\lambda_p$','$0$','$\lambda_p$','$2\lambda_p$']

@@ -21,6 +21,8 @@ wp=1.
 lp= 2*np.pi*c/wp #\lambda_p
 d=2*lp
 
+
+
 def Interfaz(eps1, mu1, eps2, mu2):
     Y1=cm.sqrt(eps1/mu1)
     Y2=cm.sqrt(eps2/mu2)
@@ -42,15 +44,26 @@ def eps(w):
 
 #eps_plasma= eps(w)
 
+N=51
+a=0.999
+w=a*wp
+f=w
+T=2.*np.pi/w
+t=np.linspace(0.,1.0,num=N)
 
-n=np.array([0.5,0.95,0.999,1.05, 1.5])
+nf=str(a)
+n=np.array([0.5,0.95,1.05, 1.5])
+
 for ii in n:
-    if ii == 1.:
-        continue
-    f=wp*ii #prueba
-    nst=str(ii)
-    ns="%.3d"%(ii*1000)
+    
+    w=wp*ii #prueba
+    
+    E2=np.matrix([ [E2p*cm.exp(1j*w*ii*T)],[E2m*cm.exp(1j*w*ii*T)] ])
+   
+    ns= "%.2f"%ii
 
+    E1pNorm=[] #Norma E1+
+  
     E1p=[]
     E1pNorm=[] #Norma E1+
     E1pPhase=[] #Fase E1+
@@ -68,13 +81,15 @@ for ii in n:
     x1=np.linspace(-d,0,num=1000)
     x2=np.linspace(0,d,num=1000)
     x3=np.linspace(d,2*d,num=1000)
-
+    x4=np.linspace(2*d,3*d,num=1000)	
+	
     x12=np.concatenate((x1,x2))
     x123=np.concatenate((x12,x3))
+    x1234=np.concatenate((x123,x4))
 
     for z in x1:
         e=eps(f)
-        A=Propagacion(z,f,eps0)*Interfaz(eps0,mu0,e,mu0)*Propagacion(0-d,f,e)*Interfaz(e,mu0,eps0,mu0)*Propagacion(d-2*d,f,eps0)
+        A=Propagacion(z,f,eps0)*Interfaz(eps0,mu0,e,mu0)*Propagacion(0-d,f,e)*Interfaz(e,mu0,2*eps0,mu0)*Propagacion(d-2*d,f,2*eps0)*Interfaz(2*eps0,mu0,eps0,mu0)*Propagacion(2*d-3*d,f,eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
@@ -115,7 +130,7 @@ for ii in n:
 
     for z in x2:
         e=eps(f)
-        A= Propagacion(z-d,f,e)*Interfaz(e,mu0,eps0,mu0)*Propagacion(d-2*d,f,eps0)
+        A= Propagacion(z-d,f,e)*Interfaz(e,mu0,2*eps0,mu0)*Propagacion(d-2*d,f,2*eps0)*Interfaz(2*eps0,mu0,eps0,mu0)*Propagacion(2*d-3*d,f,eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
@@ -151,7 +166,28 @@ for ii in n:
         
     for z in x3:
         e=eps(f)
-        A= Propagacion(z-2*d,f,eps0)
+        A= Propagacion(z-2*d,f,2*eps0)*Interfaz(2*eps0,mu0,eps0,mu0)*Propagacion(2*d-3*d,f,eps0)
+        E1 =A*E2
+        E1p = np.array(E1[0])[0].tolist()
+        E1m = np.array(E1[1])[0].tolist()
+        #print E1p[0]
+        #print E1m[0]
+        #print E1m[0]/E1p[0]
+        E1pNorm.append(cm.polar(E1p[0])[0]) #Norma E1+
+        E1pPhase.append(cm.polar(E1p[0])[1]) #Fase E1+
+        E1pReal.append(E1p[0].real) #Parte Real de  E1+
+        
+        E1mNorm.append(cm.polar(E1m[0])[0]) #Norma E1-
+        E1mPhase.append(cm.polar(E1m[0])[1]) #Fase E1-
+        E1mReal.append(E1m[0].real) #Parte Real de  E1-
+        
+        ET=(E1p[0]+ E1m[0]).real
+        E1T.append(ET) #Parte Real de  E1+
+        E1TN.append(cm.polar(E1p[0]+E1m[0])[0])
+        
+    for z in x4:
+        e=eps(f)
+        A= Propagacion(z-3*d,f,eps0)
         E1 =A*E2
         E1p = np.array(E1[0])[0].tolist()
         E1m = np.array(E1[1])[0].tolist()
@@ -170,66 +206,64 @@ for ii in n:
         E1T.append(ET) #Parte Real de  E1+
         E1TN.append(cm.polar(E1p[0]+E1m[0])[0])
 
-        
 
-   # plt.rc('text', usetex=True)
+   
+
+    #plt.rc('text', usetex=True)
     #plt.rc('font', family='serif')
-    plt.plot(x123, E1pNorm/E1MAX,'--', label='$|E_1^+|$')
-    plt.plot(x123, E1pReal/E1MAX, label='$E_1^+$')
+    #plt.plot(x1234, E1pNorm/E1MAX,'--', label='$|E_1^+|$')
+    #plt.plot(x1234, E1pReal/E1MAX, label='$E_1^+$')
     
-    plt.plot(x123, E1mNorm/E1MAX,'--',label='$|E_1^-|$')
-    plt.plot(x123, E1mReal/E1MAX, label='$E_1^-$')
+    #plt.plot(x1234, E1mNorm/E1MAX,'--',label='$|E_1^-|$')
+    #plt.plot(x1234, E1mReal/E1MAX, label='$E_1^-$')
     
-    plt.plot(x123, E1TN/E1MAX,'--', label='$|E_T|$')
-    plt.plot(x123, E1T/E1MAX, label='$E_T$')
+    #plt.plot(x1234, E1TN/E1MAX,'--', label='$|E_T|$')
+    #plt.plot(x1234, E1T/E1MAX, label='$E_T$')
     
-    plt.grid(True)
-    plt.axis([-d-0.2,2*d+0.2,-2.5,2.5])
+    #plt.grid(True)
     
-    if ii==0.999: plt.axis([-d-0.2,2*d+0.2,-3.5,3.5])
+    #plt.axis([-d-0.2,3*d+0.2,-3,3])
+    #plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
     
     
-    labelsx=[r'$-\lambda_p$','$0$','$\lambda_p$','$2\lambda_p$']
-    labelsx=[r'$-d$',r'$-\frac{d}{2}$',r'$0$',r'$\frac{d}{2}$',r'$d$',r'$\frac{3d}{2}$',r'$2d$']
-    plt.xticks(np.arange(-d,2*d+1,d/2), labelsx, fontsize=16)
-    plt.xlabel(r'$z$', fontsize=16)
-    plt.ylabel(r'$\frac{E}{|E_1^+|}$', fontsize=16)
+    #labelsx=[r'$-d$',r'$-\frac{d}{2}$',r'$0$',r'$\frac{d}{2}$',r'$d$',r'$\frac{3d}{2}$',r'$2d$',r'$\frac{5d}{2}$',r'$3d$']
+    #plt.xticks(np.arange(-d,3*d+1,d/2), labelsx, fontsize=16)
+    #plt.xlabel(r'$z$', fontsize=16)
+    #plt.ylabel(r'$\frac{E}{|E_1^+|}$', fontsize=16)
 
-    ttitle='$\omega=$'+nst+'$\omega_p$'
-    plt.title(ttitle)
-    plt.subplots_adjust(right=0.8)
-    plt.legend(bbox_to_anchor=(1.05, 1.0), loc=2, borderaxespad=0.)
-    ssave=ns+'w.pdf'
-    plt.savefig(ssave)
-    plt.show()
-    plt.close()
+    #ttitle='$\omega=$'+ns+'$\omega_p$'
+    #plt.title(ttitle)
+    #plt.subplots_adjust(right=0.8)
+    #plt.legend(bbox_to_anchor=(1.05, 1.0), loc=2, borderaxespad=0.)
+    #ssave=ns+'w.pdf'
+    #plt.savefig(ssave)
+    #ssave='w'+ns+'T.pdf'
+    #plt.savefig(ssave)
+    #plt.show()
+    #plt.close()
       
     
     ##GRAFICA DEL CAMPO
-    plt.plot(x123, E1T/E1MAX, label='$E_T$')
+    plt.plot(x1234, E1T/E1MAX, label='$\omega=$'+ ns+ '$\omega_p$')
     
     plt.grid(True)
-    plt.axis([-d-0.2,2*d+0.2,-2.5,2.5])
-    if ii==0.999: plt.axis([-d-0.2,2*d+0.2,-3.5,3.5])
+    plt.axis([-d-0.2,3*d+0.2,-3,3])
+    #plt.axis([-d-0.2,2*d+0.2,-1.5,1.5])
+    
+labelsx=[r'$-d$',r'$-\frac{d}{2}$',r'$0$',r'$\frac{d}{2}$',r'$d$',r'$\frac{3d}{2}$',r'$2d$',r'$\frac{5d}{2}$',r'$3d$']
+plt.xticks(np.arange(-d,3*d+1,d/2), labelsx, fontsize=16)
+    
+plt.xlabel(r'$z$', fontsize=16)
+plt.ylabel(r'$\frac{E}{|E_1^+|}$', fontsize=16)
+ttitle='$\omega=$ N $\omega_p$'
+plt.title(ttitle)
+    
 
-    
-    labelsx=[r'$-\lambda_p$','$0$','$\lambda_p$','$2\lambda_p$']
-    labelsx=[r'$-d$',r'$-\frac{d}{2}$',r'$0$',r'$\frac{d}{2}$',r'$d$',r'$\frac{3d}{2}$',r'$2d$']
-    plt.xticks(np.arange(-d,2*d+1,d/2), labelsx, fontsize=16)
-    
-    plt.xlabel(r'$z$', fontsize=16)
-    plt.ylabel(r'$\frac{E}{|E_1^+|}$', fontsize=16)
-    ttitle='$\omega=$'+nst+'$\omega_p$'
-    plt.title(ttitle)
-    ssave2='E'+ns+'w.pdf'
-    plt.savefig(ssave2)
-    plt.show()
-    plt.close()
-    print(ns)
+plt.legend(bbox_to_anchor=(0.6, 0.96), loc=2, borderaxespad=0.)
+  
+plt.savefig('Continuo.pdf')
+    #plt.show()
+#plt.close()
+    #print(ns)
+
 plt.show()
-    
-    
-    
-
-
-    
