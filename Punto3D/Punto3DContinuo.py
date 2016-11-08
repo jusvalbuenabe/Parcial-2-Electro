@@ -56,9 +56,9 @@ n=np.array([0.5,0.95,1.05, 1.5])
 
 for ii in n:
     
-    w=wp*ii #prueba
+    f=wp*ii #prueba
     
-    E2=np.matrix([ [E2p*cm.exp(1j*w*ii*T)],[E2m*cm.exp(1j*w*ii*T)] ])
+    #E2=np.matrix([ [E2p*cm.exp(1j*w*ii)],[E2m*cm.exp(1j*w*ii)] ])
    
     ns= "%.2f"%ii
 
